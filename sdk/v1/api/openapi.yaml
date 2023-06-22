@@ -1,0 +1,93 @@
+openapi: 3.0.0
+info:
+  description: This is a sample API description.
+  title: Sample Service API
+  version: 1.0.0
+servers:
+  - url: https://dpi.com/api
+paths:
+  /model/v1:
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Model'
+                type: array
+          description: A list of models
+      summary: List all models
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Model'
+        required: true
+      responses:
+        "201":
+          description: Model created successfully
+      summary: Create a new model
+  /model/v1/{id}:
+    delete:
+      parameters:
+        - explode: false
+          in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          description: Model deleted successfully
+      summary: Delete a model
+    get:
+      parameters:
+        - explode: false
+          in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Model'
+          description: Model details
+      summary: Query a model
+    put:
+      parameters:
+        - explode: false
+          in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Model'
+        required: true
+      responses:
+        "200":
+          description: Model updated successfully
+      summary: Update a model
+components:
+  schemas:
+    Model:
+      example:
+        name: name
+        id: id
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      type: object
